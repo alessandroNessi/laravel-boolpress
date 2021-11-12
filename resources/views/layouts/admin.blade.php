@@ -8,9 +8,7 @@
     <title>Document</title>
 </head>
 <body>
-    <header>
-        <h1 class="m-5">ciaone, sono il titolo</h1>
-    </header>
+    @include('admin.components.navbar')
     @yield('content')
     <script src="{{asset('js/app.js')}}"></script>
 </body>
