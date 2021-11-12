@@ -20,7 +20,9 @@ Route::get('/', 'PageController@index');
 // Rotte Autenticazione
 Auth::routes();
 
-// Rotte area Admin
+// Rotte area Admin non visibili se sloggati
 Route::middleware('auth')->namespace('Admin')->name('admin.')->prefix('admin')->group(function() {
     Route::get('/home', 'HomeController@index')->name('home');
+    //reindirizzo le rotte /post su /PostController
+    Route::resource("posts","PostController");
 });
