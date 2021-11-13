@@ -1,11 +1,35 @@
 @extends('layouts.admin')
+@section('title')
+    View all posts
+@endsection
 @section('content')
     
-    @foreach ($posts as $post)
-        <div>
-            <h1 class="p-5">{{$post['id'].' '.$post['title']}}</h1>
-            <p>{{$post['content']}}</p>
-            <hr>
-        </div>
-    @endforeach
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Content</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach ($posts as $post)
+            <tr>
+                <th scope="row">{{$post['id']}}</th>
+                <td><h3>{{$post['title']}}</h3></td>
+                <td>{{$post['content']}}</td>
+                <td>
+                    <a href="posts/{{$post['slug']}}"><button class="btn btn-primary">Details</button></a>
+                    <form action="{{route('admin.posts.destroy',$post['id'])}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</button>
+                    </form>
+
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
 @endsection

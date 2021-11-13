@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Post;
 
 class PostController extends Controller
@@ -27,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.create');
     }
 
     /**
@@ -38,7 +39,11 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $temp=$request->request;
+        $post=$temp->all();
+        $post['slug'] = str_replace(' ', '-', $post['title']);
+        Post::create($post);
+        return redirect('admin/posts/'.$post['slug'] );
     }
 
     /**
@@ -47,9 +52,11 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($slug)
     {
-        //
+        // $user = DB::table('users')->where('name', 'John')->first();
+        $singlePost = Post::all()->where('slug',$slug)->first();
+        return view('admin.show',compact('singlePost'));
     }
 
     /**
@@ -81,8 +88,9 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect('admin/posts');
     }
 }
