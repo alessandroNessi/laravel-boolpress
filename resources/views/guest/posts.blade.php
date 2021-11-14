@@ -1,35 +1,27 @@
-@extends('layouts.admin')
+@extends('layouts.app')
+
 @section('title')
-    View all posts
+    Boolpress Articles
 @endsection
+
 @section('content')
-    
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Title</th>
-            <th scope="col">Content</th>
-            <th class="fixedwidth text-center" scope="col">Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach ($posts as $post)
-            <tr>
-                <th scope="row">{{$post['id']}}</th>
-                <td><h3>{{$post['title']}}</h3></td>
-                <td>{{$post['content']}}</td>
-                <td class="fixedwidth d-flex">
-                    <a href="posts/{{$post['slug']}}"><button class="btn btn-primary">Details</button></a>
-                    <a href="posts/{{$post['slug']}}/edit"><button class="btn btn-warning">Edit</button></a>
-                    <form action="{{route('admin.posts.destroy',$post['id'])}}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+    <div class="container">
+        <div class="row">
+            @foreach ($posts as $post)    
+                <div class="col-6 p-2">
+                    <div class="shadow-sm p-3 h-md-250 border rounded">
+                        <div class="max-title mb-2">
+                            <h3 class="max-title">{{$post['title']}}</h3>
+                        </div>
+                        <div class="mb-2 text-muted">{{$post['updated_at']->format('d-M-y')}}</div>
+                            <p class="max-content card-text mb-auto">{{$post['content']}}</p>
+                            <p>[...]</p>
+                            <a href="/posts/{{$post['slug']}}" class="stretched-link">
+                                <button class="btn btn-primary">Visualizza il post completo</button>
+                            </a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
 @endsection

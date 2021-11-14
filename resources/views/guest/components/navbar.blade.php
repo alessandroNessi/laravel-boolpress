@@ -7,7 +7,7 @@
         <div class="d-flex justify-content-between collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="{{route('admin.posts.index')}}">View all articles</a>
+                    <a class="nav-link" aria-current="page" href="/posts">View all articles</a>
                 </li>
             </ul>
             <div class="nav-item">
