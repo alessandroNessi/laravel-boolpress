@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 use App\Post;
 
 class PostController extends Controller
@@ -39,6 +38,10 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title'=>'required|unique:posts|min:2|max:150',
+            'content'=>'required|min:2'
+        ]);
         $temp=$request->request;
         $post=$temp->all();
         $post['slug'] = str_replace(' ', '-', $post['title']);
@@ -80,6 +83,10 @@ class PostController extends Controller
      */
     public function update(Request $request,Post $post)
     {
+        $request->validate([
+            'title'=>'required|unique:posts|min:2|max:150',
+            'content'=>'required|min:2'
+        ]);
         $data=$request->all();
         $data['slug'] = str_replace(' ', '-', $data['title']);
         $post->update($data);
