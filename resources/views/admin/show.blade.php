@@ -10,7 +10,13 @@
             <p class="mb-2">Percorso slug: {{$singlePost['slug']}}</p>
             <p class="mb-2">Contenuto: {{$singlePost['content']}}</p>
         </div>
-        <div class="container">
-            <a href="{{route('admin.posts.index')}}"><button class="btn btn-primary">Torna a tutti i post</button></a>
+        <div class="container d-flex">
+            <a href="{{route('admin.posts.index')}}"><button class="btn mr-2 btn-primary">Torna a tutti i post</button></a>
+            <a href="/admin/posts/{{$singlePost['slug']}}/edit"><button class="btn mr-2 btn-warning">Edit</button></a>
+            <form action="{{route('admin.posts.destroy',$singlePost['id'])}}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit" onclick="return confirm('Are you sure?')" class="btn btn-danger">Delete</button>
+            </form>
         </div>
 @endsection

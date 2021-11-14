@@ -90,7 +90,7 @@ class PostController extends Controller
         $data=$request->all();
         $data['slug'] = str_replace(' ', '-', $data['title']);
         $post->update($data);
-        return redirect('admin/posts/'.$data['slug']);
+        return redirect('/admin/posts/'.$data['slug']);
     }
 
     /**

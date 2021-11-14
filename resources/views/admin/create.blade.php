@@ -4,7 +4,7 @@
 @endsection
 @section('content')
     <div class="container border rounded border-secondary p-4 mb-3 mt-5">            
-        <form action="{{route('admin.posts.store')}}" method="POST">
+        <form class="mb-2" action="{{route('admin.posts.store')}}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="name" class="form-label">Post's title</label>
@@ -22,5 +22,6 @@
             @enderror
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
+        <a href="/admin/posts"><button class="btn btn-danger">Annulla</button></a>
     </div>
 @endsection
