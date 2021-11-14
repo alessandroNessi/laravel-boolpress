@@ -1,21 +1,21 @@
 @extends('layouts.app')
 
+@section('title')
+    Boolpress
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    {{-- @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }} --}}
-                    benvenuto a boolstrap
+            <div class="p-5 border border-3 border-primary m-4 bg-light rounded">
+                <div class="container-fluid py-5">
+                  <h1 class="display-5 fw-bold">Boolpress</h1>
+                  <div class="col-md-8 fs-4">
+                      <p>Benvenuto nel fantastico blog di boolpress, non so bene cosa scrivere quindi ci piazzerò qualche lorem:</p>
+                      <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Neque facere, quaerat atque itaque consectetur aperiam doloribus iste dicta quos recusandae eveniet, sit debitis iusto obcaecati labore in distinctio eaque nobis.</p>
+                  </div>
+                  <button class="btn btn-primary btn-lg" type="button">Visualizza tutti gli articoli</button>
                 </div>
             </div>
         </div>
