@@ -10962,3 +10962,8 @@ a.text-dark:focus {
   }
 }
 
+.fixedwidth {
+  width: 300px;
+  justify-content: space-around;
+}
+
