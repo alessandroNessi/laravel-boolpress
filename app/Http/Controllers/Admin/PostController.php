@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Post;
 
 class PostController extends Controller
@@ -44,9 +45,9 @@ class PostController extends Controller
         ]);
         $temp=$request->request;
         $post=$temp->all();
-        $post['slug'] = str_replace(' ', '-', $post['title']);
+        $post['slug'] = Str::of($post['title'])->slug("-");
         Post::create($post);
-        return redirect('admin/posts/'.$post['slug'] );
+        return redirect()->route('admin.posts.show',$post['slug']);
     }
 
     /**
@@ -90,7 +91,7 @@ class PostController extends Controller
         $data=$request->all();
         $data['slug'] = str_replace(' ', '-', $data['title']);
         $post->update($data);
-        return redirect('/admin/posts/'.$data['slug']);
+        return redirect()->route('admin.posts.show',$data['slug']);
     }
 
     /**
@@ -102,6 +103,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect('admin/posts');
+        return redirect()->route('admin.posts.index');
     }
 }

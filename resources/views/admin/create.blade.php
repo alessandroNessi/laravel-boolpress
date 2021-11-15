@@ -22,6 +22,6 @@
             @enderror
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
-        <a href="/admin/posts"><button class="btn btn-danger">Annulla</button></a>
+        <a href="{{route("admin.posts.index")}}"><button class="btn btn-danger">Annulla</button></a>
     </div>
 @endsection
