@@ -88,12 +88,25 @@ class PostController extends Controller
             'title'=>'required|unique:posts|min:2|max:150',
             'content'=>'required|min:2'
         ]);
+        $slug=(string)Str::of($request->title)->slug('-');
+        if(count(Post::all()->where('slug',$slug))>0){
+            $slug=$this->fixSlug($slug,1);
+        }
         $data=$request->all();
-        $data['slug'] = str_replace(' ', '-', $data['title']);
+        $data['slug']=$slug;
         $post->update($data);
         return redirect()->route('admin.posts.show',$data['slug']);
     }
-
+    private function fixSlug($slug,$count){
+        $temp=$slug.$count;
+        if(count(Post::all()->where('slug',$temp))>0){
+            $count+=1;
+            $slug=(string)$this->fixSlug($slug,$count);
+        }else{
+            return $temp;
+        }
+        return $slug;
+    }
     /**
      * Remove the specified resource from storage.
      *
