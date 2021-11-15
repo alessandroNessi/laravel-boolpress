@@ -45,9 +45,13 @@ class PostController extends Controller
         ]);
         $temp=$request->request;
         $post=$temp->all();
-        $post['slug'] = Str::of($post['title'])->slug("-");
+        $slug=(string)Str::of($request->title)->slug('-');
+        if(count(Post::all()->where('slug',$slug))>0){
+            $slug=$this->fixSlug($slug,1);
+        }
+        $post['slug'] = $slug;
         Post::create($post);
-        return redirect()->route('admin.posts.show',$post['slug']);
+        return redirect()->route('admin.posts.show',$post['slug'])->with('success','il post '.$post["title"].' è stato creato');;
     }
 
     /**
@@ -95,7 +99,7 @@ class PostController extends Controller
         $data=$request->all();
         $data['slug']=$slug;
         $post->update($data);
-        return redirect()->route('admin.posts.show',$data['slug']);
+        return redirect()->route('admin.posts.show',$data['slug'])->with('success','il post '.$post["title"].' è stato aggiornato');
     }
     private function fixSlug($slug,$count){
         $temp=$slug.$count;
@@ -116,6 +120,6 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.posts.index')->with('delete','il post '.$post["title"].' è stato cancellato');;
     }
 }
