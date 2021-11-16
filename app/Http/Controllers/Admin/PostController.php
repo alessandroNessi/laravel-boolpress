@@ -89,9 +89,15 @@ class PostController extends Controller
     public function update(Request $request,Post $post)
     {
         $request->validate([
-            'title'=>'required|unique:posts|min:2|max:150',
+            'title'=>'required|min:2|max:150',
             'content'=>'required|min:2'
         ]);
+        // dd($post['title']);
+        if($request->title!=$post['title']){
+            $request->validate([
+                'title'=>'unique:posts',
+            ]); 
+        }
         $slug=(string)Str::of($request->title)->slug('-');
         if(count(Post::all()->where('slug',$slug))>0){
             $slug=$this->fixSlug($slug,1);
