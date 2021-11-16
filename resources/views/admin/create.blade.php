@@ -17,7 +17,7 @@
                 <label for="content" class="form-label">Post's content</label>
                 <textarea class="form-control" id="content" name="content">{{old('content')}}</textarea>
             </div>
-            @error('title')
+            @error('content')
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <button type="submit" class="btn btn-primary">Submit</button>
