@@ -10,6 +10,17 @@
             <div class="mb-3">
                 <label for="name" class="form-label">Post's title</label>
                 <input type="text" class="form-control" id="name" name="title" value="{{old('title')?old('title'):$post['title']}}">
+                <div class="mb-3">
+                    <label for="category_id" class="form-label">Category</label>
+                    <select class="form-control" name="category_id" id="category_id">
+                        <option value="">No category</option>  
+                        @foreach ($categories as $category)
+                            <option 
+                            {{($category['id']!=null&&$post['category_id']==$category['id'])?'selected':(old('category_id')==$category['id']?'selected':'')}}
+                             value="{{$category['id']}}">{{$category['name']}}</option>  
+                        @endforeach
+                    </select>
+                </div>
             </div>
             @error('title')
                 <div class="alert alert-danger">{{ $message }}</div>

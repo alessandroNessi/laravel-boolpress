@@ -77,8 +77,9 @@ class PostController extends Controller
      */
     public function edit($slug)
     {
+        $categories=Category::all();
         $post = Post::all()->where('slug',$slug)->first();
-        return view('admin.edit',compact('post'));
+        return view('admin.edit',compact('post'),compact('categories'));
     }
 
     /**
