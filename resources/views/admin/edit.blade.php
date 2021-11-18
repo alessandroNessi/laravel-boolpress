@@ -7,9 +7,11 @@
         <form class="mb-1" action="{{route('admin.posts.update',$post['id'])}}" method="POST">
             @csrf
             @method('PUT')
+            {{-- @dd($post->tags->contains(2)); --}}
             <div class="mb-3">
                 <label for="name" class="form-label">Post's title</label>
                 <input type="text" class="form-control" id="name" name="title" value="{{old('title')?old('title'):$post['title']}}">
+                
                 <div class="mb-3">
                     <label for="category_id" class="form-label">Category</label>
                     <select class="form-control" name="category_id" id="category_id">
@@ -21,6 +23,16 @@
                         @endforeach
                     </select>
                 </div>
+                
+                <div class="btn-group mb-3" role="group" aria-label="Basic checkbox toggle button group">
+                    @foreach ($tags as $tag)
+                        <div class="d-inline-box mr-4">
+                            <input {{$post['tags']->contains($tag['id'])?'checked':null}} name='tags[]' type="checkbox" value="{{$tag['id']}}" id="check{{$tag['id']}}">
+                            <label for="check{{$tag['id']}}">{{$tag['name']}}</label>
+                        </div>
+                    @endforeach    
+                </div>
+            
             </div>
             @error('title')
                 <div class="alert alert-danger">{{ $message }}</div>

@@ -43,7 +43,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        
         $request->validate([
             'title'=>'required|unique:posts|min:2|max:150',
             'content'=>'required|min:2',
@@ -58,17 +57,8 @@ class PostController extends Controller
         }
         $post->slug=$slug;
         $post->save();
-        // $temp=$request->request;
-        // $post=$temp->all();
-        
-        // $post['slug'] = $slug;
-        // $tem
-        // Post::create($post);
-        // dd($post);
-        // $postForTag=new Post;
-        // $postForTag=Post::find($post['id']);
         $post->tags()->attach($request->tags);
-        return redirect()->route('admin.posts.show',$post['slug'])->with('success','il post '.$post["title"].' è stato creato');;
+        return redirect()->route('admin.posts.show',$post['slug'])->with('success','il post '.$post["title"].' è stato creato');
     }
 
     /**
@@ -94,7 +84,8 @@ class PostController extends Controller
     {
         $categories=Category::all();
         $post = Post::all()->where('slug',$slug)->first();
-        return view('admin.edit',compact('post'),compact('categories'));
+        $tags=Tag::all();
+        return view('admin.edit',compact('post'),compact('categories','tags'));
     }
 
     /**
@@ -107,22 +98,26 @@ class PostController extends Controller
     public function update(Request $request,Post $post)
     {
         $request->validate([
-            'title'=>'required|min:2|max:150',
-            'content'=>'required|min:2'
+            'title'=>'required|unique:posts|min:2|max:150',
+            'content'=>'required|min:2',
+            'category_id'=>'nullable|exists:categories,id',
+            'tag_id'=>'nullable|exists:tags,id',
         ]);
         if($request->title!=$post['title']){
             $request->validate([
                 'title'=>'unique:posts',
             ]); 
         }
+        $post=new Post();
+        $post->fill($request->all());
         $slug=(string)Str::of($request->title)->slug('-');
         if(count(Post::all()->where('slug',$slug))>0){
             $slug=$this->fixSlug($slug,1);
         }
-        $data=$request->all();
-        $data['slug']=$slug;
-        $post->update($data);
-        return redirect()->route('admin.posts.show',$data['slug'])->with('success','il post '.$post["title"].' è stato aggiornato');
+        $post->slug=$slug;
+        $post->save();
+        $post->tags()->attach($request->tags);
+        return redirect()->route('admin.posts.show',$post['slug'])->with('success','il post '.$post["title"].' è stato aggiornato');
     }
     private function fixSlug($slug,$count){
         $temp=$slug.$count;
