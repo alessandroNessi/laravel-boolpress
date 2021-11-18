@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Post;
+use App\Category;
 
 class PostController extends Controller
 {
@@ -28,7 +29,8 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.create');
+        $categories=Category::all();
+        return view('admin.create',compact('categories'));
     }
 
     /**
@@ -92,7 +94,6 @@ class PostController extends Controller
             'title'=>'required|min:2|max:150',
             'content'=>'required|min:2'
         ]);
-        // dd($post['title']);
         if($request->title!=$post['title']){
             $request->validate([
                 'title'=>'unique:posts',

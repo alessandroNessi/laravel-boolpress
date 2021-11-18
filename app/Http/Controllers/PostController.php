@@ -14,10 +14,10 @@ class PostController extends Controller
     }
     public function show($slug){
         $post=Post::all()->where('slug',$slug)->first();
-        $comments=Comment::all()->where('post_id',$post['id']);
+        // $comments=Comment::all()->where('post_id',$post['id']);
         if(!$post){
             abort(404);
         }
-        return view('guest.show' , compact('post'), compact('comments'));
+        return view('guest.show' , compact('post'));
     }
 }

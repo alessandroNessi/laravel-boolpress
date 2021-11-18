@@ -14,6 +14,14 @@
                 <div class="alert alert-danger">{{ $message }}</div>
             @enderror
             <div class="mb-3">
+                <label for="category_id" class="form-label">Category</label>
+                <select class="form-control" name="category_id" id="category_id">
+                    @foreach ($categories as $category)
+                        <option value="{{$category['id']}}">{{$category['name']}}</option>  
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="content" class="form-label">Post's content</label>
                 <textarea class="form-control" id="content" name="content">{{old('content')}}</textarea>
             </div>

@@ -11,6 +11,9 @@
                 <div class="shadow-sm p-3 h-md-250 border rounded">
                     <div class="mb-2">
                         <h3 class="">{{$post['title']}}</h3>
+                        @if ($post['category_id'])
+                            <p class="mb-2"> Categoria: {{$post->category->name}} </p>
+                        @endif
                     </div>
                     <div class="mb-2 text-muted">{{$post['updated_at']->format('d-M-y')}}</div>
                     <p class="card-text mb-auto">{{$post['content']}}</p>
@@ -40,7 +43,7 @@
                     @enderror
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </form> --}}
-                @if (count($comments)>0)
+                {{-- @if (count($comments)>0)
                     <div class="shadow-sm mt-3 p-3 h-md-250 border rounded">
                         @foreach ($comments as $comment)
                             <div class="shadow-sm mt-3 p-3 h-md-250 border rounded">
@@ -52,7 +55,7 @@
                             </div>
                         @endforeach
                     </div>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>
