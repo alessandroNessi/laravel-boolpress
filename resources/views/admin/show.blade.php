@@ -11,6 +11,14 @@
             @isset($singlePost->category)
                 <p class="mb-2">Categoria: {{$singlePost->category->name}}
             @endisset
+            {{-- @dd($post->tags->contains(2)); --}}
+            @if(count($singlePost->tags)>0)
+                <p class="mb-2">tags:
+                @foreach ($singlePost->tags as $tag)                
+                    <span>{{$tag->name}} - </span>
+                @endforeach
+                </p>
+            @endif
             <p class="mb-2">Percorso slug: {{$singlePost['slug']}}</p>
             <p class="mb-2">Contenuto: {{$singlePost['content']}}</p>
         </div>
