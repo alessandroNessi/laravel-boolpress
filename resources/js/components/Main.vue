@@ -21,7 +21,7 @@
             axios.get('/api/posts')
             .then((response)=>{
                 this.posts=response.data.data;
-                console.log(this.posts);
+                // console.log(this.posts);
             })
         }
     }

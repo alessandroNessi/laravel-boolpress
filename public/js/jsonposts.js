@@ -2010,8 +2010,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/posts').then(function (response) {
-      _this.posts = response.data.data;
-      console.log(_this.posts);
+      _this.posts = response.data.data; // console.log(this.posts);
     });
   }
 });
