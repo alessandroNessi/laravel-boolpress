@@ -1,4 +1,3 @@
-alert('hello');
 window.Vue=require('vue');
 import Prova from './Prova';
 const app=new Vue({
