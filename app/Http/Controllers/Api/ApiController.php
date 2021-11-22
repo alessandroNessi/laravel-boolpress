@@ -18,10 +18,21 @@ class ApiController extends Controller
         
         // $allPost=json_encode(Post::all());
         $allPost=Post::all();
-        return response()->json(
+        $jsonPosts=response()->json(
             [
                 'success'=>true,
+                'message'=>'returning all posts',
                 'data'=>$allPost
+            ]
+        );
+        if($allPost!=null){
+            return view("guest.jsonposts",compact('jsonPosts'));
+        }
+        return response()->json(
+            [
+                'success'=>false,
+                'message'=>'no posts to return',
+                'data'=>[]
             ]
         );
     }
