@@ -60,7 +60,6 @@ class PostController extends Controller
         $post->tags()->attach($request->tags);
         return redirect()->route('admin.posts.show',$post['slug'])->with('success','il post '.$post["title"].' è stato creato');
     }
-
     /**
      * Display the specified resource.
      *
