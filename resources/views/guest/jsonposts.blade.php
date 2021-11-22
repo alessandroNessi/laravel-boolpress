@@ -1,1 +1,2 @@
-@dd($jsonPosts);
+ciao
+{{-- @dd($jsonPosts); --}}

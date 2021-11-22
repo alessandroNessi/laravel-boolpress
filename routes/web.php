@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 // Rotte pubbliche
 Route::get('/', 'PageController@index');
 Route::get('/posts', 'PostController@index');
+Route::get('/apiposts', 'PageController@apiview')->name('guest.apiposts');
 Route::get('/posts/{slug}', 'PostController@show');
 
 // Rotte Autenticazione

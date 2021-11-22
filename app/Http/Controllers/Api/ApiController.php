@@ -26,7 +26,8 @@ class ApiController extends Controller
             ]
         );
         if($allPost!=null){
-            return view("guest.jsonposts",compact('jsonPosts'));
+            return $jsonPosts;
+            // return view("guest.jsonposts",compact('jsonPosts'));
         }
         return response()->json(
             [
